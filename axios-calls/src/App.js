@@ -6,9 +6,11 @@ import './style.css'
 
 function App() {
 
-  const [nameList, setNameList] = useState([]); //Create an empty array for nameList
- const[search,setSearch] = useState("") // Create an empty string for the search filter
+const [nameList, setNameList] = useState([]); //Create an empty array for nameList
 
+const[word,setWord] = useState("");
+
+const[search,setSearch] = useState("") // Create an empty string for the search filter
   
 //Fetching the API with axios is a very simple call
   useEffect(()=> {
@@ -16,11 +18,18 @@ function App() {
     .then((response) => {setNameList(response.data.results)})  //taking the response and setting nameList
   },[]) 
   
+  //This function allows search only to be updated once handleClick is being called by the button. 
+const handleClick = () => {
+setSearch(word)
+}
+
+
   return (
     <div>
       <h1 >API CALLS AND TEXT FILTERING</h1>
 
-    <input type="text" placeholder="Search for a pokemon" onChange={(e)=>setSearch(e.target.value)}/>
+    <input type="text" placeholder="Search for a pokemon" onChange={((e) => setWord(e.target.value))} /*>>onChange={(e)=>setSearch(e.target.value)}*//>
+    <button onClick={handleClick}>Search</button>
     {nameList.filter((item)=>{
       if(search === ""){
         return item
@@ -31,7 +40,7 @@ function App() {
           //Mapping the nameList which is referred to here as item gotten from nameList.map((item) => {return({item.property})})
     .map((item) => {
       return(
-        <div className="container"><p>{item.name}</p></div>
+        <div className="container" key={item.id} ><p>{item.name}</p></div>
       )
     })}
      

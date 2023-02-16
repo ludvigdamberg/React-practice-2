@@ -31,7 +31,7 @@ input{
     border: 2px solid rgb(115, 111, 139);
     border-radius: 5px;
     margin-top: 10px;
-    transition: all 0.3s ease-out;
+    transition: ease-out 0.3s;
 }
 .container:hover{
    background-color: rgb(99, 92, 141);
